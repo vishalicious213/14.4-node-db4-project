@@ -21,14 +21,14 @@ function add(instruction) {
 // PUT / UPDATE instruction
 function update(changes, id) {
     return db("instructions")
-        .where("recipes.id", id)
+        .where("instructions.id", id)
         .update(changes)
 }
 
 // DELETE instruction by ID
 function remove(id) {
     return db("instructions")
-        .where("recipes.id", id)
+        .where("instructions.id", id)
         .del()
 }
 
