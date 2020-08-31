@@ -1,38 +1,33 @@
 const db = require("../dbConfig")
 
+// GET all recipes
 function find() {
 	return db("recipes")
 }
 
+// GET recipe by ID
 function findById(id) {
 	return db("recipes")
 		.where("id", id)
 		.first()
 }
 
+// POST new recipe
 function add(recipe) {
     return db("recipes")
         .insert(recipe)
 }
 
-// function findAnimals(zooID) {
-// 	return db("zoos_animals as za")
-// 		.join("zoos as z", "z.id", "za.zoo_id")
-// 		.join("animals as a", "a.id", "za.animal_id")
-// 		.join("species as s", "s.id", "a.species_id")
-// 		.where("z.id", zooID)
-// 		.select(
-// 			"a.id",
-// 			"a.name",
-// 			"s.name as species_name",
-// 			"za.from_date",
-// 			"za.to_date",	
-// 		)
-// }
+// PUT / UPDATE recipe
+function update(changes, id) {
+    return db("recipes")
+        .where("recipes.id", id)
+        .update(changes)
+}
 
 module.exports = {
 	find,
     findById,
     add,
-	// findAnimals,
+    update,
 }

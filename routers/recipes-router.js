@@ -3,6 +3,7 @@ const recipesDb = require("../data/models/recipes-models")
 
 const router = express.Router()
 
+// GET all recipes
 router.get("/", async (req, res, next) => {
 	try {
 		const recipes = await recipesDb.find()
@@ -12,6 +13,7 @@ router.get("/", async (req, res, next) => {
 	}
 })
 
+// GET recipe by ID
 router.get("/:id", async (req, res, next) => {
 	try {
 		const recipe = await recipesDb.findById(req.params.id)
@@ -27,6 +29,7 @@ router.get("/:id", async (req, res, next) => {
 	}
 })
 
+// POST new recipe
 router.post('/', (req, res, next) => {
 	const newRecipe = req.body;
   
@@ -36,6 +39,27 @@ router.post('/', (req, res, next) => {
 	})
 	.catch (err => {
 	  res.status(500).json({ message: 'Failed to add new recipe' });
+	});
+  });
+
+// PUT / UPDATE recipe
+router.put('/:id', (req, res) => {
+	const { id } = req.params;
+	const changes = req.body;
+  
+	recipesDb.findById(id)
+	.then(recipe => {
+	  if (recipe) {
+		recipesDb.update(changes, id)
+		.then(updatedRecipe => {
+		  res.json(updatedRecipe);
+		});
+	  } else {
+		res.status(404).json({ message: 'Could not find recipe with given id' });
+	  }
+	})
+	.catch (err => {
+	  res.status(500).json({ message: 'Failed to update recipe' });
 	});
   });
 
