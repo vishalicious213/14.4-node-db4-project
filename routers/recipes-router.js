@@ -1,5 +1,5 @@
 const express = require("express")
-const recipesDb = require("../data/models/recipes-models")
+const recipesDb = require("../data/models/recipes-model")
 
 const router = express.Router()
 
