@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) => {
 	}
 })
 
-// GET instruction by ID
+// GET ingredient by ID
 router.get("/:id", async (req, res, next) => {
 	try {
 		const ingredient = await ingredientsDb.findById(req.params.id)
@@ -29,18 +29,18 @@ router.get("/:id", async (req, res, next) => {
 	}
 })
 
-// // POST new instructions
-// router.post('/', (req, res, next) => {
-// 	const newInstruction = req.body;
+// POST new ingredient
+router.post('/', (req, res, next) => {
+	const newIngredient = req.body;
 
-// 	instructionsDb.add(newInstruction)
-// 	.then(instruction => {
-// 		res.status(201).json(instruction);
-// 	})
-// 	.catch (err => {
-// 		res.status(500).json({ message: 'Failed to add new instructions' });
-// 	});
-// });
+	ingredientsDb.add(newIngredient)
+	.then(ingredient => {
+		res.status(201).json(ingredient);
+	})
+	.catch (err => {
+		res.status(500).json({ message: 'Failed to add new ingredient' });
+	});
+});
 
 // // PUT / UPDATE instructions
 // router.put('/:id', (req, res) => {

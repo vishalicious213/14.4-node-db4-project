@@ -11,9 +11,10 @@ function findById(id) {
         .join("recipes", "recipes.id", "ingredients.recipe_id")
 		.where("ingredients.recipe_id", id)
 		.select(
-            "recipes.id",
-            "recipes.name",
-            "ingredients.name"
+            "ingredients.id as ingredient_id",
+            "ingredients.name as ingredient",
+            "recipes.id as recipe_id",
+            "recipes.name as recipe"
         )
 }
 
