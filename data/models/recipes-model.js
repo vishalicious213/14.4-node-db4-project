@@ -1,6 +1,6 @@
 const db = require("../dbConfig")
 
-// GET all recipes
+// GET all recipes (this is the same as getRecipes() from the specs)
 function find() {
 	return db("recipes")
 }
@@ -32,10 +32,25 @@ function remove(id) {
         .del()
 }
 
+// should return a list of all ingredients and quantities for a given recipe
+function getShoppingList(recipe_id) {
+    return db("recipes")
+        .join("ingredients", "recipes.id", "ingredients.recipe_id")
+        .where("recipes.id", recipe_id)
+        .select(
+            "recipes.id as recipe_id",
+            "recipes.name as recipe",
+            "ingredients.quantity as quantity",
+            "ingredients.unit as unit",
+            "ingredients.name as ingredient"
+        )
+}
+
 module.exports = {
 	find,
     findById,
     add,
     update,
-    remove
+    remove,
+    getShoppingList
 }
