@@ -25,9 +25,17 @@ function update(changes, id) {
         .update(changes)
 }
 
+// DELETE recipe by ID
+function remove(id) {
+    return db("recipes")
+        .where("recipes.id", id)
+        .del()
+}
+
 module.exports = {
 	find,
     findById,
     add,
     update,
+    remove
 }

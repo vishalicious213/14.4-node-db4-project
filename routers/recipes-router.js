@@ -32,35 +32,52 @@ router.get("/:id", async (req, res, next) => {
 // POST new recipe
 router.post('/', (req, res, next) => {
 	const newRecipe = req.body;
-  
+
 	recipesDb.add(newRecipe)
 	.then(recipe => {
-	  res.status(201).json(recipe);
+		res.status(201).json(recipe);
 	})
 	.catch (err => {
-	  res.status(500).json({ message: 'Failed to add new recipe' });
+		res.status(500).json({ message: 'Failed to add new recipe' });
 	});
-  });
+});
 
 // PUT / UPDATE recipe
 router.put('/:id', (req, res) => {
 	const { id } = req.params;
 	const changes = req.body;
-  
+
 	recipesDb.findById(id)
 	.then(recipe => {
-	  if (recipe) {
-		recipesDb.update(changes, id)
-		.then(updatedRecipe => {
-		  res.json(updatedRecipe);
-		});
-	  } else {
-		res.status(404).json({ message: 'Could not find recipe with given id' });
-	  }
+		if (recipe) {
+			recipesDb.update(changes, id)
+			.then(updatedRecipe => {
+			res.json(updatedRecipe);
+			});
+		} else {
+			res.status(404).json({ message: 'Could not find recipe with given id' });
+		}
 	})
 	.catch (err => {
-	  res.status(500).json({ message: 'Failed to update recipe' });
+		res.status(500).json({ message: 'Failed to update recipe' });
 	});
-  });
+});
+
+// DELETE recipe by ID
+router.delete('/:id', (req, res) => {
+	const { id } = req.params;
+
+	recipesDb.remove(id)
+	.then(deleted => {
+		if (deleted) {
+		res.json({ removed: deleted });
+		} else {
+		res.status(404).json({ message: 'Could not find recipe with given id' });
+		}
+	})
+	.catch(err => {
+		res.status(500).json({ message: 'Failed to delete recipe' });
+	});
+});
 
 module.exports = router
