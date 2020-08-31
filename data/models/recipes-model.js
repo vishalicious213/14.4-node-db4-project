@@ -32,7 +32,7 @@ function remove(id) {
         .del()
 }
 
-// should return a list of all ingredients and quantities for a given recipe
+// returns a list of all ingredients and quantities for a given recipe
 function getShoppingList(recipe_id) {
     return db("recipes")
         .join("ingredients", "recipes.id", "ingredients.recipe_id")
@@ -46,11 +46,24 @@ function getShoppingList(recipe_id) {
         )
 }
 
+// returns a list of step by step instructions for preparing a recipe
+function getInstructions(recipe_id) {
+    return db("recipes")
+        .join("instructions", "recipes.id", "instructions.recipe_id")
+        .where("recipes.id", recipe_id)
+        .select(
+            "recipes.id as recipe_id",
+            "recipes.name as recipe",
+            "instructions.steps as instructions"
+        )
+}
+
 module.exports = {
 	find,
     findById,
     add,
     update,
     remove,
-    getShoppingList
+    getShoppingList,
+    getInstructions
 }

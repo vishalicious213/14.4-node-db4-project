@@ -80,10 +80,26 @@ router.delete('/:id', (req, res) => {
 	});
 });
 
-// GET shopping list
+// GET shopping list for recipe
 router.get("/:id/shoppinglist", async (req, res, next) => {
 	try {
 		const recipe = await recipesDb.getShoppingList(req.params.id)
+		if (!recipe) {
+			return res.status(404).json({
+				message: "Recipe not found",
+			})
+		}
+
+		res.json(recipe)
+	} catch(err) {
+		next(err)
+	}
+})
+
+// GET instructions for recipe
+router.get("/:id/instructions", async (req, res, next) => {
+	try {
+		const recipe = await recipesDb.getInstructions(req.params.id)
 		if (!recipe) {
 			return res.status(404).json({
 				message: "Recipe not found",
