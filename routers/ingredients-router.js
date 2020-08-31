@@ -63,21 +63,21 @@ router.put('/:id', (req, res) => {
 	});
 });
 
-// // DELETE instructions by ID
-// router.delete('/:id', (req, res) => {
-// 	const { id } = req.params;
+// DELETE ingredient by ID
+router.delete('/:id', (req, res) => {
+	const { id } = req.params;
 
-// 	instructionsDb.remove(id)
-// 	.then(deleted => {
-// 		if (deleted) {
-// 		res.json({ removed: deleted });
-// 		} else {
-// 		res.status(404).json({ message: 'Could not find recipe instructions' });
-// 		}
-// 	})
-// 	.catch(err => {
-// 		res.status(500).json({ message: 'Failed to delete recipe instructions' });
-// 	});
-// });
+	ingredientsDb.remove(id)
+	.then(deleted => {
+		if (deleted) {
+		res.json({ removed: deleted });
+		} else {
+		res.status(404).json({ message: 'Could not find ingredient' });
+		}
+	})
+	.catch(err => {
+		res.status(500).json({ message: 'Failed to delete ingredient' });
+	});
+});
 
 module.exports = router
