@@ -42,26 +42,26 @@ router.post('/', (req, res, next) => {
 	});
 });
 
-// // PUT / UPDATE instructions
-// router.put('/:id', (req, res) => {
-// 	const { id } = req.params;
-// 	const changes = req.body;
+// PUT / UPDATE ingredient
+router.put('/:id', (req, res) => {
+	const { id } = req.params;
+	const changes = req.body;
 
-// 	instructionsDb.findById(id)
-// 	.then(instruction => {
-// 		if (instruction) {
-// 			instructionsDb.update(changes, id)
-// 			.then(updatedInstruction => {
-// 			res.json(updatedInstruction);
-// 			});
-// 		} else {
-// 			res.status(404).json({ message: 'Could not find instructions for recipe' });
-// 		}
-// 	})
-// 	.catch (err => {
-// 		res.status(500).json({ message: 'Failed to update instructions' });
-// 	});
-// });
+	ingredientsDb.findById(id)
+	.then(ingredient => {
+		if (ingredient) {
+			ingredientsDb.update(changes, id)
+			.then(updatedIngredient => {
+			res.json(updatedIngredient);
+			});
+		} else {
+			res.status(404).json({ message: 'Could not find ingredient' });
+		}
+	})
+	.catch (err => {
+		res.status(500).json({ message: 'Failed to update ingredient' });
+	});
+});
 
 // // DELETE instructions by ID
 // router.delete('/:id', (req, res) => {
