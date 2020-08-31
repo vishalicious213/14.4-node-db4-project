@@ -10,6 +10,11 @@ function findById(id) {
 		.first()
 }
 
+function add(recipe) {
+    return db("recipes")
+        .insert(recipe)
+}
+
 // function findAnimals(zooID) {
 // 	return db("zoos_animals as za")
 // 		.join("zoos as z", "z.id", "za.zoo_id")
@@ -27,6 +32,7 @@ function findById(id) {
 
 module.exports = {
 	find,
-	findById,
+    findById,
+    add,
 	// findAnimals,
 }
